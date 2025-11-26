@@ -1,9 +1,19 @@
 import { GoogleGenAI, Type, Schema } from "@google/genai";
 import { AuraResult } from "../types";
 
-// API Key is securely loaded from environment variables (Vercel/System env)
-// Do not hardcode the key here.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Helper to get API key from various environment variable formats
+// Supports:
+// 1. process.env.API_KEY (Node/Webpack/System)
+// 2. import.meta.env.VITE_API_KEY (Vite/Vercel Client-side)
+const getApiKey = (): string => {
+  const key = process.env.API_KEY || (import.meta as any).env?.VITE_API_KEY;
+  if (!key) {
+    console.warn("API Key is missing. Please check your environment variables (API_KEY or VITE_API_KEY).");
+  }
+  return key || "";
+};
+
+const ai = new GoogleGenAI({ apiKey: getApiKey() });
 
 const responseSchema: Schema = {
   type: Type.OBJECT,
