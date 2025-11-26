@@ -1,0 +1,7 @@
+{
+  "name": "무드체크 AI",
+  "description": "사진 한 장으로 알아보는 나의 퍼스널 무드와 에너지 레벨. AI가 분석해주는 특별한 리포트를 받아보세요.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
